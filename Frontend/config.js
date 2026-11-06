@@ -9,7 +9,7 @@
    >>> dele abaixo (sem barra no final e sem /api).
    ========================================================== */
 
-const URL_BACKEND_PRODUCAO = "https://SEU-BACKEND.onrender.com";
+const URL_BACKEND_PRODUCAO = "https://ouro-verde-api.onrender.com";
 
 const RODANDO_LOCAL =
     location.protocol === "file:" ||
