@@ -1,0 +1,89 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#050505;
+    color:white;
+    font-family:system-ui,sans-serif;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.sucesso-container{
+    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.sucesso-card{
+    background:#111;
+    padding:50px;
+    border-radius:20px;
+    text-align:center;
+    max-width:600px;
+}
+
+.sucesso-card h1{
+    color:#cda15b;
+    margin-bottom:20px;
+}
+
+.sucesso-card p{
+    margin-bottom:15px;
+}
+
+.acoes{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    margin-top:30px;
+}
+
+.btn-principal,
+.btn-secundario{
+    text-decoration:none;
+    padding:14px 24px;
+    border-radius:30px;
+}
+
+.btn-principal{
+    background:#cda15b;
+    color:white;
+}
+
+.btn-secundario{
+    border:1px solid #cda15b;
+    color:#cda15b;
+}
+
+/* ===== Ajustes ===== */
+
+.resumo-financeiro table{
+    width:100%;
+    border-collapse:collapse;
+    margin:15px 0;
+}
+
+.resumo-financeiro th,
+.resumo-financeiro td{
+    padding:8px;
+    border-bottom:1px solid #333;
+}
+
+.resumo-financeiro th{
+    color:#cda15b;
+}
+
+.instrucoes{
+    margin:20px 0;
+    padding:15px;
+    border-radius:8px;
+    background-color:#f8f9fa;
+    color:#333;
+}

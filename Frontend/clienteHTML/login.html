@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrar - Ouro Verde</title>
+    <link rel="stylesheet" href="../clienteCSS/checkout.css">
+    <link rel="stylesheet" href="../clienteCSS/login.css">
+</head>
+
+<body>
+
+    <header>
+        <a href="../index.html" class="voltar">← Voltar ao Catálogo</a>
+    </header>
+
+    <main class="login-container">
+
+        <!-- LOGIN (UC01) -->
+        <section class="painel">
+            <h1>ENTRAR</h1>
+            <p class="subtitulo">Já tem conta? Entre para finalizar o pedido e ver seus pedidos.</p>
+
+            <form id="form-login">
+                <div class="grupo">
+                    <label for="login-email">E-mail</label>
+                    <input type="email" id="login-email" required>
+                </div>
+                <div class="grupo">
+                    <label for="login-senha">Senha</label>
+                    <input type="password" id="login-senha" required>
+                </div>
+                <p id="erro-login" class="mensagem-erro"></p>
+                <button type="submit">ENTRAR</button>
+            </form>
+        </section>
+
+        <!-- CADASTRO (UC02) -->
+        <section class="painel">
+            <h1>CRIAR CONTA</h1>
+            <p class="subtitulo">Primeira vez aqui? Cadastre-se em menos de um minuto.</p>
+
+            <form id="form-cadastro">
+                <div class="grupo">
+                    <label for="cad-nome">Nome completo *</label>
+                    <input type="text" id="cad-nome" required>
+                </div>
+                <div class="linha">
+                    <div class="grupo">
+                        <label for="cad-cpf">CPF ou CNPJ *</label>
+                        <input type="text" id="cad-cpf" required>
+                    </div>
+                    <div class="grupo">
+                        <label for="cad-telefone">Telefone</label>
+                        <input type="text" id="cad-telefone">
+                    </div>
+                </div>
+                <div class="linha">
+                    <div class="grupo">
+                        <label for="cad-email">E-mail *</label>
+                        <input type="email" id="cad-email" required>
+                    </div>
+                    <div class="grupo">
+                        <label for="cad-senha">Senha * (mín. 6)</label>
+                        <input type="password" id="cad-senha" minlength="6" required>
+                    </div>
+                </div>
+
+                <p class="subtitulo">Endereço (usado quando o pedido é para entrega)</p>
+                <div class="linha">
+                    <div class="grupo">
+                        <label for="cad-rua">Rua</label>
+                        <input type="text" id="cad-rua">
+                    </div>
+                    <div class="grupo">
+                        <label for="cad-numero">Número</label>
+                        <input type="text" id="cad-numero">
+                    </div>
+                </div>
+                <div class="linha">
+                    <div class="grupo">
+                        <label for="cad-bairro">Bairro</label>
+                        <input type="text" id="cad-bairro">
+                    </div>
+                    <div class="grupo">
+                        <label for="cad-cidade">Cidade</label>
+                        <input type="text" id="cad-cidade">
+                    </div>
+                </div>
+                <div class="grupo">
+                    <label for="cad-cep">CEP</label>
+                    <input type="text" id="cad-cep">
+                </div>
+
+                <p id="erro-cadastro" class="mensagem-erro"></p>
+                <button type="submit">CRIAR CONTA</button>
+            </form>
+        </section>
+
+    </main>
+
+    <script src="../config.js"></script>
+    <script src="../clienteJS/api.js"></script>
+    <script src="../clienteJS/login.js"></script>
+
+</body>
+
+</html>

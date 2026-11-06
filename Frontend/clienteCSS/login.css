@@ -1,0 +1,51 @@
+/* Reaproveita o visual do checkout.css e so organiza os dois paineis */
+
+.login-container{
+    width:90%;
+    max-width:1100px;
+    margin:20px auto 60px;
+    display:grid;
+    grid-template-columns:1fr 1.4fr;
+    gap:30px;
+    align-items:start;
+}
+
+.painel{
+    background:#111;
+    border-radius:20px;
+    padding:30px;
+}
+
+.painel h1{
+    margin-bottom:8px;
+}
+
+.subtitulo{
+    color:#aaa;
+    font-size:14px;
+    margin:10px 0 20px;
+}
+
+.painel button{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:30px;
+    background:#cda15b;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.mensagem-erro{
+    color:#ff6b6b;
+    min-height:20px;
+    margin-bottom:10px;
+    font-size:14px;
+}
+
+@media(max-width:900px){
+    .login-container{
+        grid-template-columns:1fr;
+    }
+}

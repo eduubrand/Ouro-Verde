@@ -1,0 +1,170 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#050505;
+    color:white;
+    font-family:system-ui,sans-serif;
+}
+
+header{
+    padding:20px 40px;
+}
+
+.voltar{
+    color:white;
+    text-decoration:none;
+}
+
+.checkout-container{
+    width:90%;
+    margin:40px auto;
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:30px;
+}
+
+.dados-cliente,
+.resumo{
+    background:#111;
+    border-radius:20px;
+    padding:30px;
+}
+
+.dados-cliente h1{
+    margin-bottom:25px;
+}
+
+.grupo{
+    display:flex;
+    flex-direction:column;
+    margin-bottom:20px;
+}
+
+.grupo label{
+    margin-bottom:8px;
+}
+
+.grupo input{
+    padding:12px;
+    border:none;
+    border-radius:10px;
+}
+
+.linha{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.tipo-entrega{
+    display:flex;
+    gap:20px;
+    margin-top:15px;
+}
+
+.oculto{
+    display:none;
+}
+
+.linha-resumo{
+    display:flex;
+    justify-content:space-between;
+    margin:15px 0;
+}
+
+.total{
+    color:#cda15b;
+    font-weight:bold;
+}
+
+.resumo button{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:30px;
+    background:#cda15b;
+    color:white;
+    cursor:pointer;
+}
+
+@media(max-width:900px){
+
+    .checkout-container{
+        grid-template-columns:1fr;
+    }
+
+    .linha{
+        grid-template-columns:1fr;
+    }
+
+}
+
+/* ===== Ajustes do checkout ===== */
+
+.grupo select{
+    padding:12px;
+    border:none;
+    border-radius:10px;
+}
+
+.grupo input[readonly]{
+    background:#ddd;
+    color:#333;
+}
+
+.dica{
+    color:#aaa;
+    font-size:13px;
+    margin-top:6px;
+}
+
+.dica a{
+    color:#cda15b;
+}
+
+.aviso{
+    font-size:13px;
+    margin-top:6px;
+}
+
+.aviso.ok{
+    color:#7bd389;
+}
+
+.aviso.erro{
+    color:#ff6b6b;
+}
+
+.forma-pagamento{
+    margin:20px 0;
+}
+
+.forma-pagamento h3{
+    margin-bottom:10px;
+}
+
+.forma-pagamento label{
+    display:block;
+    margin-bottom:10px;
+    cursor:pointer;
+}
+
+.forma-pagamento select{
+    width:100%;
+    padding:10px;
+    border:none;
+    border-radius:10px;
+}
+
+.label-parcelas{
+    margin-top:15px;
+}
+
+.resumo button:disabled{
+    opacity:.6;
+    cursor:wait;
+}

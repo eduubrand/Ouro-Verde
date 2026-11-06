@@ -1,0 +1,219 @@
+:root{
+    --preto:#101111;
+    --verde:#154230;
+    --dourado:#A5824A;
+    --vinho:#5D1E21;
+    --cinza:#E6E2EA;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins', sans-serif;
+}
+
+body{
+    height:100vh;
+}
+
+.container{
+    display:flex;
+    height:100vh;
+}
+
+/* ESQUERDA */
+
+.left-panel{
+    width:60%;
+
+    background:
+    linear-gradient(
+        90deg,
+        #101111 0%,
+        #154230 100%
+    );
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.branding{
+    text-align:center;
+}
+
+.logo-placeholder img{
+
+    width:420px;
+    height:270px;
+
+    color:white;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:auto;
+    margin-top: -40px;
+
+}
+
+.welcome-text{
+    color:white;
+    font-size:32px;
+    margin-bottom:40px;
+    margin-top: -40px;
+}
+
+.badge-placeholder img{
+
+    width:320px;
+    height:200px;
+
+    color:white;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    margin:auto;
+}
+
+/* DIREITA */
+
+.right-panel{
+    width:40%;
+    background:var(--cinza);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.login-box{
+    width:80%;
+    max-width:450px;
+}
+
+.login-box h1{
+
+    font-size:56px;
+
+    color:var(--verde);
+
+    margin-bottom:40px;
+}
+
+.input-group{
+
+    display:flex;
+    align-items:center;
+
+    gap:12px;
+
+    margin-bottom:30px;
+}
+
+.icon-placeholder{
+
+    width:20px;
+
+    display:flex;
+    justify-content:center;
+}
+
+.input-group input{
+
+    flex:1;
+
+    padding:14px;
+
+    border:1px solid #d8d8d8;
+
+    border-radius:10px;
+
+    outline:none;
+}
+
+.input-group input:focus{
+    border-color:var(--verde);
+}
+
+button{
+
+    width:100%;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:var(--verde);
+
+    color:white;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    margin-bottom:15px;
+}
+
+button:hover{
+    opacity:.9;
+}
+
+.forgot-password{
+
+    display:block;
+
+    text-align:center;
+
+    text-decoration:none;
+
+    color:#777;
+
+    font-size:13px;
+}
+
+.error-message{
+
+    display:none;
+
+    color:#d11c1c;
+
+    font-size:12px;
+
+    margin-bottom:15px;
+}
+
+.error-message.show{
+    display:block;
+}
+
+/* RESPONSIVO */
+
+@media(max-width:900px){
+
+    .container{
+        flex-direction:column;
+    }
+
+    .left-panel,
+    .right-panel{
+        width:100%;
+    }
+
+    .left-panel{
+        min-height:40vh;
+    }
+
+    .right-panel{
+        min-height:60vh;
+    }
+
+    .login-box h1{
+        font-size:42px;
+    }
+}

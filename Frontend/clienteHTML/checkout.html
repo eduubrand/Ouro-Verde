@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Ouro Verde</title>
+    <link rel="stylesheet" href="../clienteCSS/checkout.css">
+</head>
+
+<body>
+
+    <header>
+        <a href="../index.html" class="voltar">← Voltar ao Catálogo</a>
+    </header>
+
+    <form id="form-checkout" class="checkout-container">
+
+        <section class="dados-cliente">
+
+            <h1>FINALIZAR PEDIDO</h1>
+
+            <div class="linha">
+                <div class="grupo">
+                    <label>Nome</label>
+                    <input type="text" id="nome" readonly>
+                </div>
+                <div class="grupo">
+                    <label>E-mail</label>
+                    <input type="email" id="email" readonly>
+                </div>
+            </div>
+            <p class="dica">Não é você? <a href="#" id="trocar-conta">Entrar com outra conta</a></p>
+
+            <div class="grupo">
+                <label for="servico">Espaço / Serviço</label>
+                <select id="servico" required>
+                    <option value="">Carregando...</option>
+                </select>
+                <small id="descricao-servico" class="dica"></small>
+            </div>
+
+            <div class="grupo">
+                <label for="dataEvento">Data do Evento *</label>
+                <input type="date" id="dataEvento" required>
+                <small id="aviso-disponibilidade" class="aviso"></small>
+            </div>
+
+            <div class="grupo">
+                <label>Entrega ou Retirada *</label>
+                <div class="tipo-entrega">
+                    <label><input type="radio" name="tipoEntrega" value="RETIRADA" checked> Retirar no Ouro Verde</label>
+                    <label><input type="radio" name="tipoEntrega" value="ENTREGA"> Entrega no endereço</label>
+                </div>
+                <small id="endereco-entrega" class="dica oculto"></small>
+            </div>
+
+        </section>
+
+        <aside class="resumo">
+
+            <h2>RESUMO DO PEDIDO</h2>
+
+            <div id="itensResumo"></div>
+
+            <div class="linha-resumo">
+                <span>Itens</span>
+                <span id="subtotal">R$ 0,00</span>
+            </div>
+
+            <div class="linha-resumo">
+                <span id="nome-servico-resumo">Serviço</span>
+                <span id="preco-servico">R$ 0,00</span>
+            </div>
+
+            <div class="linha-resumo total">
+                <span>Total</span>
+                <span id="total">R$ 0,00</span>
+            </div>
+
+            <div class="forma-pagamento">
+                <h3>Forma de Pagamento</h3>
+                <label>
+                    <input type="radio" name="metodoPagamento" value="PIX" checked>
+                    Pix
+                </label>
+                <label>
+                    <input type="radio" name="metodoPagamento" value="PRESENCIAL">
+                    Pessoalmente (dinheiro/cartão)
+                </label>
+
+                <label for="parcelas" class="label-parcelas">Parcelas</label>
+                <select id="parcelas">
+                    <option value="1">1x (à vista)</option>
+                    <option value="2">2x</option>
+                    <option value="3">3x</option>
+                </select>
+                <small id="valor-parcela" class="dica"></small>
+            </div>
+
+            <button type="submit" id="btn-finalizar">FINALIZAR PEDIDO</button>
+
+        </aside>
+
+    </form>
+
+    <script src="../config.js"></script>
+    <script src="../clienteJS/api.js"></script>
+    <script src="../clienteJS/checkout.js"></script>
+
+</body>
+
+</html>

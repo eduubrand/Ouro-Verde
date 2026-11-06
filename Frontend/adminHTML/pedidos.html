@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedidos - Ouro Verde</title>
+
+    <link rel="icon" type="image/png" href="../adminAssets/logo.png">
+    <link rel="stylesheet" href="../adminCSS/pedidos.css">
+    <link rel="stylesheet" href="../adminCSS/extras.css">
+
+    <script src="../config.js"></script>
+    <script src="../adminJS/api.js"></script>
+    <script>exigirLogin();</script>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-top">
+            <div class="logo-placeholder">
+                <img src="../adminAssets/logo.png" alt="Ouro Verde">
+            </div>
+            <nav>
+                <a href="dashboard.html">DASHBOARD</a>
+                <a href="pedidos.html" class="active">PEDIDOS</a>
+                <a href="produtos.html">PRODUTOS</a>
+            </nav>
+        </div>
+        <div class="sidebar-bottom">
+            <a href="#" id="logoutBtn">SAIR</a>
+        </div>
+    </aside>
+
+    <!-- CONTEÚDO -->
+    <main class="content">
+
+        <h1>PAINEL<span>ADMIN</span></h1>
+
+        <section class="cards">
+            <div class="card">
+                <h3>RECEITA DO MÊS</h3>
+                <p id="receitaMensal">-</p>
+            </div>
+            <div class="card">
+                <h3>PEDIDOS PENDENTES</h3>
+                <p id="pedidosPendentes">-</p>
+            </div>
+            <div class="card">
+                <h3>PEDIDOS CONCLUÍDOS</h3>
+                <p id="pedidosFinalizados">-</p>
+            </div>
+        </section>
+
+        <section class="table-container">
+
+            <h3>PEDIDOS</h3>
+
+            <!-- UC09: pedidos organizados por status -->
+            <div class="filtro-status">
+                <label for="filtroStatus">Filtrar por status:</label>
+                <select id="filtroStatus">
+                    <option value="">Todos</option>
+                    <option value="PENDENTE">Pendente</option>
+                    <option value="CONFIRMADO">Confirmado</option>
+                    <option value="EM_ANDAMENTO">Em andamento</option>
+                    <option value="CONCLUIDO">Concluído</option>
+                    <option value="CANCELADO">Cancelado</option>
+                </select>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>CLIENTE</th>
+                        <th>ESPAÇO / ITENS</th>
+                        <th>DATA DO EVENTO</th>
+                        <th>ENTREGA</th>
+                        <th>TOTAL</th>
+                        <th>PAGO</th>
+                        <th>STATUS</th>
+                        <th>AÇÃO</th>
+                    </tr>
+                </thead>
+                <tbody id="pedidosTable"></tbody>
+            </table>
+
+        </section>
+
+    </main>
+
+</div>
+
+<!-- MODAL DE DETALHES DO PEDIDO -->
+<div class="modal" id="detalhesModal">
+    <div class="modal-content modal-detalhes" id="detalhesConteudo"></div>
+</div>
+
+<!-- MODAL DE SAIR -->
+<div class="modal" id="logoutModal">
+    <div class="modal-content">
+        <h2>Tem certeza que quer sair?</h2>
+        <div class="modal-buttons">
+            <button id="confirmLogout">SAIR</button>
+            <button id="cancelLogout">CANCELAR</button>
+        </div>
+    </div>
+</div>
+
+<script src="../adminJS/pedidos.js"></script>
+
+</body>
+</html>

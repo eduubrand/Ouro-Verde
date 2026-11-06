@@ -1,0 +1,50 @@
+# Sobe o sistema inteiro com um comando:  docker compose up --build
+#   Banco:    localhost:5432 (usuario postgres / senha postgres)
+#   Backend:  http://localhost:8080/api   (Swagger: http://localhost:8080/swagger-ui.html)
+#   Frontend: http://localhost:5500       (admin: http://localhost:5500/adminHTML/login.html)
+
+services:
+  db:
+    image: postgres:16
+    container_name: ouroverde-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ouro_verde
+    ports:
+      # Se ja tiver outro Postgres na 5432, defina DB_PORT=5434 (ou outra porta livre) antes do docker compose up
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      # Na PRIMEIRA vez que o volume e criado, o Postgres roda este script
+      # (cria as tabelas e os dados de exemplo).
+      - ./script_banco.sql:/docker-entrypoint-initdb.d/01-script_banco.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d ouro_verde"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  backend:
+    build: ./backend
+    container_name: ouroverde-backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_URL: jdbc:postgresql://db:5432/ouro_verde
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+
+  frontend:
+    image: nginx:alpine
+    container_name: ouroverde-frontend
+    ports:
+      - "5500:80"
+    volumes:
+      - ./Frontend:/usr/share/nginx/html:ro
+
+volumes:
+  postgres_data:

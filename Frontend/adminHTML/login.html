@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Ouro Verde</title>
+
+    <link rel="icon" type="image/svg+xml" href="../adminAssets/logo.png">
+
+    <link rel="stylesheet" href="../adminCSS/login.css">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- LADO ESQUERDO -->
+
+    <section class="left-panel">
+
+        <div class="branding">
+
+            <!-- LOGO PRINCIPAL -->
+            <div class="logo-placeholder">
+                <img src="../adminAssets/nome.png" alt="">
+            </div>
+
+            <p class="welcome-text">
+                Bem vindo ao painel de Administrador 💚
+            </p>
+
+            <!-- BRASÃO -->
+            <div class="badge-placeholder">
+                <img src="../adminAssets/logo.png" alt="">
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- LADO DIREITO -->
+
+    <section class="right-panel">
+
+        <div class="login-box">
+
+            <h1>CONECTE-SE</h1>
+
+            <div id="errorMessage" class="error-message">
+                A Email ou senha incorretos
+            </div>
+
+            <form id="loginForm">
+
+                <div class="input-group">
+
+                    <div class="icon-placeholder">
+                        ✉
+                    </div>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Email"
+                        required
+                    >
+
+                </div>
+
+                <div class="input-group">
+
+                    <div class="icon-placeholder">
+                        🔒
+                    </div>
+
+                    <input
+                        type="password"
+                        id="senha"
+                        placeholder="Senha"
+                        required
+                    >
+
+                </div>
+
+                <button type="submit">
+                    ENTRAR
+                </button>
+
+                <a href="#" class="forgot-password">
+                    Esqueceu a senha?
+                </a>
+
+            </form>
+
+        </div>
+
+    </section>
+
+</div>
+
+<script src="../config.js"></script>
+    <script src="../adminJS/api.js"></script>
+<script src="../adminJS/login.js"></script>
+
+</body>
+</html>

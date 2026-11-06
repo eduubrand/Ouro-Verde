@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos - Ouro Verde</title>
+
+    <link rel="icon" type="image/png" href="../adminAssets/logo.png">
+    <link rel="stylesheet" href="../adminCSS/produtos.css">
+    <link rel="stylesheet" href="../adminCSS/extras.css">
+
+    <script src="../config.js"></script>
+    <script src="../adminJS/api.js"></script>
+    <script>exigirLogin();</script>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-top">
+            <div class="logo-placeholder">
+                <img src="../adminAssets/logo.png" alt="Ouro Verde">
+            </div>
+            <nav>
+                <a href="dashboard.html">DASHBOARD</a>
+                <a href="pedidos.html">PEDIDOS</a>
+                <a href="produtos.html" class="active">PRODUTOS</a>
+            </nav>
+        </div>
+        <div class="sidebar-bottom">
+            <a href="#" id="logoutBtn">SAIR</a>
+        </div>
+    </aside>
+
+    <!-- CONTEÚDO -->
+    <main class="content">
+
+        <h1>PAINEL<span>ADMIN</span></h1>
+
+        <section class="cards">
+            <div class="card">
+                <h3>PRODUTOS CADASTRADOS</h3>
+                <p id="totalProdutos">-</p>
+            </div>
+            <div class="card">
+                <h3>SEM ESTOQUE</h3>
+                <p id="semEstoque">-</p>
+            </div>
+            <div class="card">
+                <h3>CATEGORIAS</h3>
+                <p id="totalCategorias">-</p>
+            </div>
+        </section>
+
+        <!-- FORMULÁRIO DE PRODUTO (UC08) -->
+        <section class="form-container">
+
+            <h3 id="tituloForm">+ ADICIONAR PRODUTO</h3>
+
+            <form id="produtoForm">
+                <input type="hidden" id="idEdicao">
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="nome">NOME DO PRODUTO *</label>
+                        <input type="text" id="nome" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="categoria">CATEGORIA *</label>
+                        <select id="categoria" required>
+                            <option value="">Carregando categorias...</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="preco">PREÇO POR UNIDADE (R$) *</label>
+                        <input type="number" id="preco" min="0" step="0.01" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="estoque">ESTOQUE (UNIDADES QUE A EMPRESA POSSUI) *</label>
+                        <input type="number" id="estoque" min="0" step="1" required>
+                    </div>
+
+                    <div class="form-group image-field">
+                        <label for="imagem">IMAGEM (URL)</label>
+                        <input type="url" id="imagem" placeholder="https://...">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-add" id="btnSalvar">ADICIONAR</button>
+                <button type="button" class="btn-add btn-cancelar" id="btnCancelar" style="display:none;">CANCELAR</button>
+            </form>
+
+        </section>
+
+        <!-- TABELA DE PRODUTOS -->
+        <section class="table-container">
+            <h3>PRODUTOS CADASTRADOS</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>IMAGEM</th>
+                        <th>NOME</th>
+                        <th>CATEGORIA</th>
+                        <th>PREÇO</th>
+                        <th>ESTOQUE</th>
+                        <th>AÇÃO</th>
+                    </tr>
+                </thead>
+                <tbody id="produtosTable"></tbody>
+            </table>
+        </section>
+
+        <!-- CATEGORIAS (UC07) -->
+        <section class="form-container">
+            <h3>CATEGORIAS</h3>
+            <form id="categoriaForm" class="form-inline">
+                <div class="form-group">
+                    <label for="nomeCategoria">NOVA CATEGORIA</label>
+                    <input type="text" id="nomeCategoria" placeholder="Ex.: Louças" required>
+                </div>
+                <button type="submit" class="btn-add">ADICIONAR</button>
+            </form>
+            <div id="listaCategorias" class="categorias-lista"></div>
+        </section>
+
+    </main>
+
+</div>
+
+<!-- MODAL DE SAIR -->
+<div class="modal" id="logoutModal">
+    <div class="modal-content">
+        <h2>Tem certeza que quer sair?</h2>
+        <div class="modal-buttons">
+            <button id="confirmLogout">SAIR</button>
+            <button id="cancelLogout">CANCELAR</button>
+        </div>
+    </div>
+</div>
+
+<script src="../adminJS/produtos.js"></script>
+
+</body>
+</html>

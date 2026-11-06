@@ -1,0 +1,162 @@
+/* ==========================================================
+   ESTILOS COMPARTILHADOS ADICIONADOS NAS TELAS ADMIN
+   (incluido depois do CSS de cada pagina)
+   ========================================================== */
+
+/* Valores dos cards (antes ficavam sem estilo/vazios) */
+.card p{
+    color:white;
+    font-size:30px;
+    font-weight:bold;
+    margin-top:25px;
+}
+
+/* Todos os status usados pelo backend */
+.status{ white-space:nowrap; }
+.status.pendente{ background:#A5824A; color:white; }
+.status.confirmado{ background:#1f5f8b; color:white; }
+.status.em_andamento{ background:#6b4fa0; color:white; }
+.status.concluido{ background:#154230; color:white; border:1px solid rgba(255,255,255,.4); }
+.status.cancelado{ background:#5D1E21; color:white; }
+.status.pago{ background:#154230; color:white; }
+
+.btn-action.secundario{
+    background:rgba(255,255,255,.2);
+}
+
+.btn-action.excluir{
+    background:var(--vinho);
+}
+
+.btn-action + .btn-action{
+    margin-left:6px;
+}
+
+/* Filtro por status (Pedidos) */
+.filtro-status{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:white;
+    font-size:12px;
+    margin-bottom:15px;
+}
+
+.filtro-status select,
+.modal-detalhes select{
+    height:34px;
+    border:none;
+    border-radius:8px;
+    padding:0 10px;
+}
+
+/* Modal grande de detalhes do pedido */
+.modal-content.modal-detalhes{
+    width:min(760px, 92vw);
+    max-height:88vh;
+    overflow-y:auto;
+    text-align:left;
+}
+
+.modal-detalhes h2{
+    font-size:22px;
+}
+
+.modal-detalhes h4{
+    margin:18px 0 8px;
+    color:var(--verde);
+}
+
+.modal-detalhes p{
+    margin:4px 0;
+    color:#222;
+    font-size:14px;
+}
+
+.modal-detalhes table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:13px;
+}
+
+.modal-detalhes th{
+    color:var(--verde);
+    font-size:11px;
+    padding:6px;
+    border-bottom:1px solid #ccc;
+    text-align:left;
+}
+
+.modal-detalhes td{
+    color:#222;
+    padding:6px;
+    border-bottom:1px solid #eee;
+}
+
+.modal-detalhes .linha-status{
+    display:flex;
+    gap:10px;
+    align-items:center;
+    margin-top:20px;
+    flex-wrap:wrap;
+}
+
+.modal-detalhes .rodape-modal{
+    display:flex;
+    justify-content:flex-end;
+    margin-top:20px;
+}
+
+/* Gerenciar categorias (Produtos) */
+.categorias-lista{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:15px;
+}
+
+.categoria-chip{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background:rgba(255,255,255,.15);
+    color:white;
+    border-radius:20px;
+    padding:6px 12px;
+    font-size:13px;
+}
+
+.categoria-chip button{
+    background:none;
+    border:none;
+    color:white;
+    cursor:pointer;
+    font-size:13px;
+}
+
+.form-inline{
+    display:flex;
+    gap:10px;
+    align-items:flex-end;
+}
+
+.form-inline .form-group{
+    flex:1;
+}
+
+.form-inline .btn-add{
+    margin-top:0;
+}
+
+.btn-cancelar{
+    margin-left:10px;
+    background:rgba(255,255,255,.2) !important;
+}
+
+.miniatura{
+    width:42px;
+    height:42px;
+    object-fit:cover;
+    border-radius:6px;
+    vertical-align:middle;
+}
