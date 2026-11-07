@@ -198,6 +198,18 @@ e o `apiFetch` do frontend lança um `Error` com essa mensagem, que vira um `ale
 - Carrinho no `localStorage`: `[{ idMaterial, nome, preco, quantidade, estoque }]`.
 - Sempre que um texto do banco vai para o HTML, passe por `escapeHtml()`.
 
+**Visual (CSS)** — são só 3 arquivos:
+
+| Arquivo | Usado por | O que tem |
+|---|---|---|
+| `Css/base.css` | todas as páginas | cores e fontes (variáveis no `:root`), botões `.btn`, campos `.campo`, tabelas `.tabela`, status, modal |
+| `Css/style.css` | site do cliente | cabeçalho, hero, catálogo, carrinho, checkout, login, pedidos, sucesso |
+| `adminCSS/admin.css` | painel admin | barra lateral, indicadores, formulários, detalhes do pedido, login do admin |
+
+- Para mudar uma cor no site inteiro, troque a variável em `base.css` (ex.: `--verde-700`).
+- **Responsivo:** cada arquivo termina com um bloco `RESPONSIVO` (`@media`). Pontos de quebra: 900px (tablet: menu vira botão, barra do admin vai para o topo) e 600/720px (celular).
+- Tabelas com `class="tabela responsiva"` viram cartões no celular. O rótulo de cada linha do cartão vem do cabeçalho da tabela, copiado sozinho por `rotularTabelas()` (no `api.js`). Uma tabela nova só precisa da classe.
+
 ---
 
 ## 6. Endpoints da API
