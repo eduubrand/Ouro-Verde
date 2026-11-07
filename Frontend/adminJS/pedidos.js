@@ -15,14 +15,14 @@ let reservas = [];
 /* ---------------- LISTAGEM ---------------- */
 
 async function carregarPedidos() {
-    tbody.innerHTML = `<tr><td colspan="9" style="text-align:center;">Carregando pedidos...</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="9" class="celula-aviso">Carregando pedidos...</td></tr>`;
 
     try {
         reservas = await apiFetch("/reservas");
         renderizarCards();
         renderizarTabela();
     } catch (erro) {
-        tbody.innerHTML = `<tr><td colspan="9" style="color:#ff8a8a; text-align:center;">${escapeHtml(erro.message)}</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="9" class="celula-erro">${escapeHtml(erro.message)}</td></tr>`;
     }
 }
 
@@ -51,7 +51,7 @@ function renderizarTabela() {
     const lista = filtro ? reservas.filter(r => r.status === filtro) : reservas;
 
     if (lista.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="9" style="text-align:center;">Nenhum pedido encontrado.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="9" class="celula-aviso">Nenhum pedido encontrado.</td></tr>`;
         return;
     }
 
@@ -62,7 +62,7 @@ function renderizarTabela() {
             <td>${descricaoItens(r)}</td>
             <td>${formatarData(r.dataEvento)}</td>
             <td>${r.tipoEntrega === "ENTREGA" ? "Entrega" : "Retirada"}</td>
-            <td style="font-weight:bold;">${formatarMoeda(r.valorTotal)}</td>
+            <td><strong>${formatarMoeda(r.valorTotal)}</strong></td>
             <td>${formatarMoeda(totalPago(r))}</td>
             <td>${badgeStatus(r.status)}</td>
             <td><button class="btn-action" onclick="abrirDetalhes(${r.idReserva})">Ver</button></td>
@@ -89,7 +89,7 @@ function abrirDetalhes(idReserva) {
             <td>${formatarMoeda(i.precoNoMomento)}</td>
             <td>${formatarMoeda(i.precoNoMomento * i.quantidadeAlocada)}</td>
         </tr>
-    `).join("") || `<tr><td colspan="4">Sem itens avulsos.</td></tr>`;
+    `).join("") || `<tr><td colspan="4" class="celula-aviso">Sem itens avulsos.</td></tr>`;
 
     const linhasParcelas = (r.parcelas || []).map(p => {
         const paga = p.statusPagamento === "PAGO";
@@ -112,40 +112,55 @@ function abrirDetalhes(idReserva) {
     ).join("");
 
     conteudoDetalhes.innerHTML = `
-        <h2>Pedido #${r.idReserva} ${badgeStatus(r.status)}</h2>
+        <div class="detalhe-topo">
+            <div>
+                <span class="eyebrow">Pedido #${r.idReserva}</span>
+                <h2>${escapeHtml(c.nome ?? "-")}</h2>
+            </div>
+            ${badgeStatus(r.status)}
+            <button class="btn-fechar" onclick="fecharDetalhes()" aria-label="Fechar">✕</button>
+        </div>
 
-        <h4>Cliente</h4>
-        <p><strong>${escapeHtml(c.nome ?? "-")}</strong> · ${escapeHtml(c.email ?? "")} · CPF/CNPJ ${escapeHtml(c.cpfCnpj ?? "-")}</p>
-        <p>Endereço: ${escapeHtml(endereco)}</p>
+        <div class="detalhe-grade">
+            <dl>
+                <dt>Cliente</dt>
+                <dd>${escapeHtml(c.email ?? "-")}<br>CPF/CNPJ ${escapeHtml(c.cpfCnpj ?? "-")}</dd>
+                <dt>Endereço</dt>
+                <dd>${escapeHtml(endereco)}</dd>
+            </dl>
+            <dl>
+                <dt>Evento</dt>
+                <dd><strong>${formatarData(r.dataEvento)}</strong> · pedido em ${formatarData(r.dataSolicitacao)}</dd>
+                <dt>Espaço / serviço</dt>
+                <dd>${escapeHtml(r.servico?.nome ?? "-")} · ${formatarMoeda(r.servico?.precoBase)}</dd>
+                <dt>Logística e pagamento</dt>
+                <dd>${r.tipoEntrega === "ENTREGA" ? "Entrega no endereço do cliente" : "Retirada no Ouro Verde"}
+                    · ${r.formaPagamento === "PRESENCIAL" ? "Presencial" : "Pix"}</dd>
+            </dl>
+        </div>
 
-        <h4>Evento</h4>
-        <p>Data: <strong>${formatarData(r.dataEvento)}</strong> (solicitado em ${formatarData(r.dataSolicitacao)})</p>
-        <p>Espaço/serviço: ${escapeHtml(r.servico?.nome ?? "-")} — ${formatarMoeda(r.servico?.precoBase)}</p>
-        <p>${r.tipoEntrega === "ENTREGA" ? "🚚 Entrega no endereço do cliente" : "🏬 Retirada no Ouro Verde"}
-           · Pagamento: ${r.formaPagamento === "PRESENCIAL" ? "Presencial" : "Pix"}</p>
-
-        <h4>Itens</h4>
-        <table>
-            <thead><tr><th>PRODUTO</th><th>QTD</th><th>PREÇO UNIT.</th><th>SUBTOTAL</th></tr></thead>
+        <h3 class="detalhe-titulo">Itens</h3>
+        <table class="tabela responsiva">
+            <thead><tr><th>Produto</th><th>Qtd</th><th>Preço unit.</th><th>Subtotal</th></tr></thead>
             <tbody>${linhasItens}</tbody>
         </table>
-        <p style="margin-top:8px;"><strong>Total: ${formatarMoeda(r.valorTotal)}</strong> · Pago: ${formatarMoeda(totalPago(r))}</p>
 
-        <h4>Parcelas</h4>
-        <table>
-            <thead><tr><th>Nº</th><th>VENCIMENTO</th><th>VALOR</th><th>SITUAÇÃO</th><th></th></tr></thead>
+        <div class="detalhe-totais">
+            <span>Total <strong>${formatarMoeda(r.valorTotal)}</strong></span>
+            <span>Pago <strong>${formatarMoeda(totalPago(r))}</strong></span>
+        </div>
+
+        <h3 class="detalhe-titulo">Parcelas</h3>
+        <table class="tabela responsiva">
+            <thead><tr><th>Nº</th><th>Vencimento</th><th>Valor</th><th>Situação</th><th>Ação</th></tr></thead>
             <tbody>${linhasParcelas}</tbody>
         </table>
 
         <div class="linha-status">
-            <label for="novoStatus"><strong>Alterar status:</strong></label>
+            <label for="novoStatus">Alterar status</label>
             <select id="novoStatus" ${finalizada ? "disabled" : ""}>${opcoesStatus}</select>
             <button class="btn-action" ${finalizada ? "disabled" : ""} onclick="salvarStatus(${r.idReserva})">Salvar status</button>
             ${finalizada ? `<small>Pedidos concluídos ou cancelados não podem mais ser alterados.</small>` : ""}
-        </div>
-
-        <div class="rodape-modal">
-            <button class="btn-action secundario" onclick="fecharDetalhes()">Fechar</button>
         </div>
     `;
 
@@ -208,4 +223,9 @@ carregarPedidos().then(() => {
     // Vindo do dashboard com pedidos.html?id=5 -> ja abre o pedido
     const id = Number(new URLSearchParams(window.location.search).get("id"));
     if (id) abrirDetalhes(id);
+});
+
+// Esc fecha a janela de detalhes
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") fecharDetalhes();
 });

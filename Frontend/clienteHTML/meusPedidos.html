@@ -4,35 +4,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meus Pedidos - Ouro Verde</title>
-    <link rel="stylesheet" href="../clienteCSS/meusPedidos.css">
+    <title>Meus pedidos · Ouro Verde</title>
+    <meta name="theme-color" content="#16291d">
+    <link rel="icon" type="image/png" href="../adminAssets/logo.png">
+    <link rel="stylesheet" href="../Css/base.css">
+    <link rel="stylesheet" href="../Css/style.css">
 </head>
 
 <body>
 
-    <header>
-        <a href="../index.html" class="voltar">← Voltar ao Catálogo</a>
-        <h1>MEUS PEDIDOS</h1>
-        <p id="saudacao" class="saudacao"></p>
+    <header class="site-header">
+        <div class="wrap">
+            <a href="../index.html" class="marca">
+                <img src="../Imagens/WhatsApp Image 2026-05-07 at 10.17.49 (1) 2.png" alt="Ouro Verde Buffet">
+                <span>Ouro Verde<small>Buffet &amp; Locação</small></span>
+            </a>
+            <a href="../index.html#catalogo" class="voltar">← Voltar ao catálogo</a>
+        </div>
     </header>
 
-    <main class="container">
+    <main class="pagina">
+        <div class="wrap">
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Pedido</th>
-                    <th>Data do evento</th>
-                    <th>Itens</th>
-                    <th>Entrega</th>
-                    <th>Status</th>
-                    <th>Pagamento</th>
-                    <th>Total</th>
-                </tr>
-            </thead>
-            <tbody id="listaPedidos"></tbody>
-        </table>
+            <div class="pagina-titulo">
+                <span class="eyebrow">Sua conta</span>
+                <h1>Meus pedidos</h1>
+                <p id="saudacao" class="saudacao"></p>
+            </div>
 
+            <section class="painel painel-tabela">
+                <table class="tabela responsiva">
+                    <thead>
+                        <tr>
+                            <th>Pedido</th>
+                            <th>Evento</th>
+                            <th>Itens</th>
+                            <th>Entrega</th>
+                            <th>Status</th>
+                            <th>Pagamento</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listaPedidos"></tbody>
+                </table>
+            </section>
+
+        </div>
     </main>
 
     <script src="../config.js"></script>

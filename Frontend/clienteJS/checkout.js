@@ -129,7 +129,7 @@ async function finalizarPedido(event) {
 
     const botao = document.getElementById("btn-finalizar");
     botao.disabled = true;
-    botao.textContent = "ENVIANDO...";
+    botao.textContent = "Enviando...";
 
     try {
         const reserva = await apiFetch("/reservas", { method: "POST", body: JSON.stringify(payload) });
@@ -145,9 +145,16 @@ async function finalizarPedido(event) {
         limparCarrinho();
         window.location.href = "sucesso.html";
     } catch (erro) {
+        // Sessao antiga de um cliente que nao existe mais no banco (ex.: banco recriado):
+        // desloga e manda entrar de novo, sem perder o carrinho.
+        if (erro.message.startsWith("Cliente não encontrado")) {
+            alert("Sua sessão expirou. Entre novamente para finalizar o pedido.");
+            logoutCliente("login.html?voltar=checkout.html");
+            return;
+        }
         alert("Não foi possível concluir o pedido:\n" + erro.message);
         botao.disabled = false;
-        botao.textContent = "FINALIZAR PEDIDO";
+        botao.textContent = "Finalizar pedido";
     }
 }
 

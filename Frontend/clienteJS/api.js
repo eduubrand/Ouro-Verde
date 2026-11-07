@@ -152,3 +152,39 @@ function exigirLoginCliente(paginaAtual) {
     }
     return cliente;
 }
+
+/* ---------------- TABELAS NO CELULAR ----------------
+   Em telas pequenas, as tabelas com class="responsiva" viram
+   cartoes (ver base.css). Cada celula precisa saber o nome da
+   sua coluna (data-label); esta funcao copia do cabecalho.
+   Roda sozinha sempre que o conteudo da pagina muda.
+------------------------------------------------------ */
+
+function rotularTabelas() {
+    document.querySelectorAll("table.responsiva").forEach(tabela => {
+        const titulos = [...tabela.querySelectorAll("thead th")].map(th => th.textContent.trim());
+        tabela.querySelectorAll("tbody tr").forEach(tr => {
+            [...tr.children].forEach((td, i) => {
+                if (!titulos[i] || td.hasAttribute("colspan")) return;
+                td.dataset.label = titulos[i];
+                // Junta o conteudo da celula num bloco so (senao "#2<br>feito em..." se separa no celular)
+                if (td.childNodes.length > 1 && !td.querySelector(":scope > .celula")) {
+                    const bloco = document.createElement("div");
+                    bloco.className = "celula";
+                    while (td.firstChild) bloco.appendChild(td.firstChild);
+                    td.appendChild(bloco);
+                }
+            });
+        });
+    });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    rotularTabelas();
+    let agendado = false;
+    new MutationObserver(() => {
+        if (agendado) return;
+        agendado = true;
+        requestAnimationFrame(() => { agendado = false; rotularTabelas(); });
+    }).observe(document.body, { childList: true, subtree: true });
+});

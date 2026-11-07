@@ -4,203 +4,185 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ouro Verde Buffet</title>
+    <title>Ouro Verde Buffet · Locação para eventos</title>
+    <meta name="description" content="Locação de móveis, louças, tecidos e decoração para eventos. Escolha os itens, defina a data e receba no local.">
+    <meta name="theme-color" content="#16291d">
+    <link rel="icon" type="image/png" href="adminAssets/logo.png">
 
-    <!-- Atencao: o nome da pasta e "Css" com C maiusculo. No Windows tanto faz,
-         mas em servidores Linux (deploy) "css/" nao e encontrado. -->
+    <!-- Atencao: o nome da pasta e "Css" com C maiusculo (em servidores Linux faz diferenca). -->
+    <link rel="stylesheet" href="Css/base.css">
     <link rel="stylesheet" href="Css/style.css">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC:wght@400;500;700;800&display=swap"
-        rel="stylesheet">
 </head>
 
 <body>
 
-    <header>
+    <header class="site-header">
+        <div class="wrap">
 
-        <div class="logo">
-            <img src="Imagens/WhatsApp Image 2026-05-07 at 10.17.49 (1) 2.png" alt="Ouro Verde Buffet">
-        </div>
+            <a href="index.html" class="marca">
+                <img src="Imagens/WhatsApp Image 2026-05-07 at 10.17.49 (1) 2.png" alt="Ouro Verde Buffet">
+                <span>Ouro Verde<small>Buffet &amp; Locação</small></span>
+            </a>
 
-        <nav>
-            <a href="#catalogo">Produtos</a>
-            <a href="#como-funciona">Como Funciona</a>
-            <a href="#contato">Contato</a>
-            <a href="clienteHTML/meusPedidos.html">Meus Pedidos</a>
-        </nav>
+            <nav class="menu" id="menu">
+                <a href="#catalogo">Catálogo</a>
+                <a href="#como-funciona">Como funciona</a>
+                <a href="#contato">Contato</a>
+                <a href="clienteHTML/meusPedidos.html">Meus pedidos</a>
+                <!-- No celular o "Entrar / Sair" aparece aqui dentro -->
+                <div id="area-cliente-menu" class="area-cliente-menu"></div>
+            </nav>
 
-        <div class="header-acoes">
-            <!-- Preenchido pelo JS: "Entrar" ou "Olá, Fulano | Sair" -->
-            <div id="area-cliente" class="area-cliente"></div>
+            <div class="header-acoes">
+                <!-- Preenchido pelo JS: "Entrar" ou "Olá, Fulano · Sair" -->
+                <div id="area-cliente" class="area-cliente"></div>
 
-            <div class="carrinho-btn" onclick="abrirCarrinho()">
-                🛒 Carrinho (<span id="contador">0</span>)
+                <button type="button" class="btn-carrinho" onclick="abrirCarrinho()" aria-label="Abrir carrinho">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M3 4h2l2.4 11.2a1.5 1.5 0 0 0 1.5 1.2h8.3a1.5 1.5 0 0 0 1.5-1.1L20.5 8H6.2" />
+                        <circle cx="9.5" cy="20" r="1.2" />
+                        <circle cx="17" cy="20" r="1.2" />
+                    </svg>
+                    <span class="texto">Carrinho</span>
+                    <span id="contador" class="contador">0</span>
+                </button>
             </div>
-        </div>
 
-    </header>
-
-    <aside id="carrinho-lateral" class="carrinho-lateral">
-
-        <div class="carrinho-topo">
-
-            <h2>🛒 Carrinho</h2>
-
-            <button onclick="fecharCarrinho()">
-                ✕
+            <button type="button" class="btn-menu" id="btn-menu" aria-label="Abrir menu" aria-expanded="false"
+                onclick="alternarMenu()">
+                <span></span>
             </button>
 
+        </div>
+    </header>
+
+    <!-- CARRINHO LATERAL -->
+    <div class="carrinho-fundo" onclick="fecharCarrinho()"></div>
+
+    <aside id="carrinho-lateral" class="carrinho-lateral" aria-label="Carrinho">
+
+        <div class="carrinho-topo">
+            <h2>Seu carrinho</h2>
+            <button type="button" class="btn-fechar" onclick="fecharCarrinho()" aria-label="Fechar carrinho">✕</button>
         </div>
 
         <div id="itens-carrinho" class="itens-carrinho">
-
-            <p class="vazio">
-                Seu carrinho está vazio
-            </p>
-
+            <p class="vazio">Seu carrinho está vazio.</p>
         </div>
 
         <div class="rodape-carrinho">
-
-            <h3>
-                Total: R$
-                <span id="total">0,00</span>
-            </h3>
-
-            <button
-                class="btn-finalizar"
-                onclick="finalizarCompra()">
-                Finalizar Compra
+            <div class="total-linha">
+                <span>Total</span>
+                <strong>R$ <span id="total">0,00</span></strong>
+            </div>
+            <button type="button" class="btn btn-primario btn-bloco" onclick="finalizarCompra()">
+                Finalizar pedido
             </button>
-
         </div>
 
     </aside>
 
-    <section class="hero">
+    <main>
 
-        <div class="overlay">
-
-            <h1>
-                ENCONTRE AS MELHORES
-                <br>
-                DECORAÇÕES PARA
-                <br>
-                SEU EVENTO
-            </h1>
-
-            <button
-                class="btn-principal"
-                onclick="irParaCatalogo()">
-
-                VER CATEGORIAS
-
-            </button>
-
-        </div>
-
-    </section>
-
-    <section id="como-funciona" class="como-funciona">
-
-        <h2>
-            COMO <span>FUNCIONA</span>
-        </h2>
-
-        <div class="passos">
-
-            <div class="passo">
-
-                <img src="Imagens/Comparing.png" alt="Escolha os itens">
-
-                <h3>Escolha os Itens</h3>
-
+        <section class="hero">
+            <div class="hero-texto">
+                <span class="eyebrow">Locação para eventos</span>
+                <h1>Sua festa montada <em>do jeito certo.</em></h1>
                 <p>
-                    Navegue pelo catálogo e selecione os produtos desejados.
+                    Mesas, cadeiras, louças, toalhas e decoração para aniversários,
+                    casamentos e confraternizações. Escolha os itens, marque a data
+                    e a gente cuida do resto.
                 </p>
+                <div class="hero-acoes">
+                    <a href="#catalogo" class="btn btn-ouro">Ver catálogo</a>
+                    <a href="#como-funciona" class="btn btn-contorno">Como funciona</a>
+                </div>
+            </div>
+            <div class="hero-foto" role="img" aria-label="Mesa de bolo decorada com arranjos de flores brancas"></div>
+        </section>
+
+        <section id="como-funciona" class="secao como-funciona">
+            <div class="wrap">
+
+                <div class="secao-topo">
+                    <div>
+                        <span class="eyebrow">Passo a passo</span>
+                        <h2>Como funciona</h2>
+                    </div>
+                </div>
+
+                <ol class="passos">
+                    <li class="passo">
+                        <h3>Escolha os itens</h3>
+                        <p>Navegue pelo catálogo e coloque no carrinho o que precisa, na quantidade certa.</p>
+                    </li>
+                    <li class="passo">
+                        <h3>Marque a data</h3>
+                        <p>No fechamento do pedido você vê na hora se os itens estão livres para o dia do evento.</p>
+                    </li>
+                    <li class="passo">
+                        <h3>Entrega ou retirada</h3>
+                        <p>Levamos até o endereço do evento ou você busca com a gente, como preferir.</p>
+                    </li>
+                    <li class="passo">
+                        <h3>Pague como quiser</h3>
+                        <p>Pix ou pagamento presencial, em até 3 parcelas.</p>
+                    </li>
+                </ol>
 
             </div>
+        </section>
 
-            <div class="passo">
+        <section id="catalogo" class="secao">
+            <div class="wrap">
 
-                <img src="Imagens/Calendar.png" alt="Datas">
+                <div class="secao-topo">
+                    <div>
+                        <span class="eyebrow">Para alugar</span>
+                        <h2>Nosso catálogo</h2>
+                    </div>
+                    <div id="filtros" class="filtros">
+                        <!-- Categorias carregadas pelo JavaScript -->
+                    </div>
+                </div>
 
-                <h3>Defina as Datas</h3>
-
-                <p>
-                    Escolha o período em que irá utilizar os itens.
-                </p>
-
-            </div>
-
-            <div class="passo">
-
-                <img src="Imagens/Delivery Time.png" alt="Entrega">
-
-                <h3>Entrega ou Retirada</h3>
-
-                <p>
-                    Receba no local do evento ou retire conosco.
-                </p>
+                <div id="lista-produtos" class="produtos">
+                    <p class="mensagem-lista">Carregando produtos...</p>
+                </div>
 
             </div>
+        </section>
 
-            <div class="passo">
-
-                <img src="Imagens/cyber-security.png" alt="Pagamento">
-
-                <h3>Pagamento Seguro</h3>
-
-                <p>
-                    Processo rápido, simples e protegido.
-                </p>
-
-            </div>
-
-        </div>
-
-    </section>
-
-    <section id="catalogo" class="catalogo">
-
-        <h2>
-            NOSSO
-            <span>CATÁLOGO</span>
-        </h2>
-
-        <div id="filtros" class="filtros">
-            <!-- Categorias carregadas pelo JavaScript -->
-        </div>
-
-        <div id="lista-produtos" class="produtos">
-            <!-- Produtos carregados pelo JavaScript -->
-        </div>
-
-    </section>
+    </main>
 
     <footer id="contato" class="footer">
+        <div class="wrap">
 
-        <div class="footer-conteudo">
+            <div class="footer-grade">
+                <div>
+                    <h2>Ouro Verde Buffet</h2>
+                    <p>Locação de móveis, louças, tecidos e decoração para eventos de todos os tamanhos.</p>
+                </div>
+                <div>
+                    <h3>Contato</h3>
+                    <ul>
+                        <li><a href="tel:+5588999999999">(88) 99999-9999</a></li>
+                        <li><a href="mailto:contato@ouroverdebuffet.com">contato@ouroverdebuffet.com</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Sua conta</h3>
+                    <ul>
+                        <li><a href="clienteHTML/login.html">Entrar ou criar conta</a></li>
+                        <li><a href="clienteHTML/meusPedidos.html">Meus pedidos</a></li>
+                    </ul>
+                </div>
+            </div>
 
-            <h2>Ouro Verde Buffet</h2>
-
-            <p>
-                Locação de móveis, louças, tecidos e decoração para eventos.
-            </p>
-
-            <p>
-                📞 (88) 99999-9999
-            </p>
-
-            <p>
-                📧 contato@ouroverdebuffet.com
-            </p>
+            <p class="footer-base">© <span id="ano"></span> Ouro Verde Buffet</p>
 
         </div>
-
     </footer>
 
     <script src="config.js"></script>

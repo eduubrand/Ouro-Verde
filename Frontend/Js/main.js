@@ -11,16 +11,18 @@ let carrinho = lerCarrinho();
 /* ---------------- CARRINHO LATERAL ---------------- */
 
 function abrirCarrinho() {
-    document.getElementById("carrinho-lateral").classList.add("ativo");
+    fecharMenu();
+    document.body.classList.add("carrinho-aberto");
 }
 
 function fecharCarrinho() {
-    document.getElementById("carrinho-lateral").classList.remove("ativo");
+    document.body.classList.remove("carrinho-aberto");
 }
 
-function irParaCatalogo() {
-    document.getElementById("catalogo").scrollIntoView({ behavior: "smooth" });
-}
+// Esc fecha o carrinho
+document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") fecharCarrinho();
+});
 
 function finalizarCompra() {
     if (carrinho.length === 0) {
@@ -56,6 +58,12 @@ function adicionarCarrinho(idMaterial) {
 
     salvarCarrinho(carrinho);
     atualizarCarrinho();
+
+    // Pequeno "pulo" no contador para mostrar que entrou no carrinho
+    const contador = document.getElementById("contador");
+    contador.classList.remove("pulou");
+    void contador.offsetWidth;
+    contador.classList.add("pulou");
 }
 
 function alterarQuantidade(idMaterial, delta) {
@@ -90,7 +98,7 @@ function atualizarCarrinho() {
         totalCarrinho(carrinho).toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
     if (carrinho.length === 0) {
-        lista.innerHTML = '<p class="vazio">Seu carrinho está vazio</p>';
+        lista.innerHTML = '<p class="vazio">Seu carrinho está vazio.</p>';
         return;
     }
 
@@ -105,10 +113,25 @@ function atualizarCarrinho() {
                     <button onclick="alterarQuantidade(${item.idMaterial}, 1)" aria-label="Aumentar">+</button>
                 </div>
             </div>
-            <button class="btn-remover" onclick="removerItem(${item.idMaterial})" aria-label="Remover">✕</button>
+            <button class="btn-remover" onclick="removerItem(${item.idMaterial})">Remover</button>
         </div>
     `).join("");
 }
+
+/* ---------------- MENU DO CELULAR ---------------- */
+
+function alternarMenu() {
+    const aberto = document.getElementById("menu").classList.toggle("aberto");
+    document.getElementById("btn-menu").setAttribute("aria-expanded", aberto);
+}
+
+function fecharMenu() {
+    document.getElementById("menu").classList.remove("aberto");
+    document.getElementById("btn-menu").setAttribute("aria-expanded", "false");
+}
+
+// Ao tocar num link do menu, ele fecha
+document.querySelectorAll("#menu > a").forEach(link => link.addEventListener("click", fecharMenu));
 
 /* ---------------- CATALOGO ---------------- */
 
@@ -140,29 +163,33 @@ function carregarProdutos(lista) {
     const container = document.getElementById("lista-produtos");
 
     if (lista.length === 0) {
-        container.innerHTML = "<p>Nenhum produto nesta categoria.</p>";
+        container.innerHTML = '<p class="mensagem-lista">Nenhum produto nesta categoria.</p>';
         return;
     }
 
     container.innerHTML = lista.map(produto => {
         const semEstoque = produto.quantidadeEstoque <= 0;
         const imagem = produto.urlImagem
-            // onerror: se o link da imagem estiver quebrado, mostra o quadro dourado padrao
-            ? `<img class="imagem" src="${escapeHtml(produto.urlImagem)}" alt="${escapeHtml(produto.nome)}"
-                    onerror="this.outerHTML='<div class=&quot;imagem&quot;></div>'">`
-            : `<div class="imagem"></div>`;
+            // onerror: se o link da imagem estiver quebrado, mostra o quadro padrao
+            ? `<img class="produto-foto" src="${escapeHtml(produto.urlImagem)}" alt="${escapeHtml(produto.nome)}"
+                    loading="lazy" onerror="this.outerHTML='<div class=&quot;produto-foto sem-foto&quot;></div>'">`
+            : `<div class="produto-foto sem-foto"></div>`;
 
         return `
-            <div class="card">
+            <article class="produto">
                 ${imagem}
-                <h3>${escapeHtml(produto.nome)}</h3>
-                <p class="categoria-card">${escapeHtml(produto.categoria?.nome ?? "")}</p>
-                <p>${formatarMoeda(produto.precoUnitario)} <small>/ unidade</small></p>
-                <p class="estoque-card">${semEstoque ? "Indisponível" : `Estoque: ${produto.quantidadeEstoque} un.`}</p>
-                <button onclick="adicionarCarrinho(${produto.idMaterial})" ${semEstoque ? "disabled" : ""}>
-                    ${semEstoque ? "Indisponível" : "Adicionar ao Carrinho"}
-                </button>
-            </div>
+                <div class="produto-info">
+                    <span class="eyebrow">${escapeHtml(produto.categoria?.nome ?? "")}</span>
+                    <h3>${escapeHtml(produto.nome)}</h3>
+                    <p class="produto-preco">${formatarMoeda(produto.precoUnitario)} <small>/ unidade</small></p>
+                    <p class="produto-estoque ${semEstoque ? "esgotado" : ""}">
+                        ${semEstoque ? "Indisponível no momento" : `${produto.quantidadeEstoque} unidades no estoque`}
+                    </p>
+                    <button class="btn btn-contorno" onclick="adicionarCarrinho(${produto.idMaterial})" ${semEstoque ? "disabled" : ""}>
+                        ${semEstoque ? "Indisponível" : "Adicionar ao carrinho"}
+                    </button>
+                </div>
+            </article>
         `;
     }).join("");
 }
@@ -190,23 +217,29 @@ async function buscarDadosDoBanco() {
     } catch (erro) {
         console.error(erro);
         document.getElementById("lista-produtos").innerHTML =
-            `<p style="color: red;">Erro ao carregar os produtos: ${escapeHtml(erro.message)}</p>`;
+            `<p class="mensagem-lista erro">Erro ao carregar os produtos: ${escapeHtml(erro.message)}</p>`;
     }
 }
 
 /* ---------------- CLIENTE LOGADO ---------------- */
 
 function mostrarAreaCliente() {
-    const area = document.getElementById("area-cliente");
     const cliente = getClienteLogado();
+    let html;
 
     if (cliente) {
         const primeiroNome = escapeHtml(cliente.nome.split(" ")[0]);
-        area.innerHTML = `Olá, ${primeiroNome} · <a href="#" onclick="logoutCliente('index.html'); return false;">Sair</a>`;
+        html = `Olá, ${primeiroNome} · <a href="#" onclick="logoutCliente('index.html'); return false;">Sair</a>`;
     } else {
-        area.innerHTML = `<a href="clienteHTML/login.html?voltar=..%2Findex.html">Entrar</a>`;
+        html = `<a href="clienteHTML/login.html?voltar=..%2Findex.html">Entrar</a>`;
     }
+
+    // Mesmo conteudo no cabecalho (computador) e dentro do menu (celular)
+    document.getElementById("area-cliente").innerHTML = html;
+    document.getElementById("area-cliente-menu").innerHTML = html;
 }
+
+document.getElementById("ano").textContent = new Date().getFullYear();
 
 mostrarAreaCliente();
 atualizarCarrinho();

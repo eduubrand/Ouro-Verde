@@ -4,34 +4,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pedido Realizado</title>
-    <link rel="stylesheet" href="../clienteCSS/sucesso.css">
+    <title>Pedido realizado · Ouro Verde</title>
+    <meta name="theme-color" content="#16291d">
+    <link rel="icon" type="image/png" href="../adminAssets/logo.png">
+    <link rel="stylesheet" href="../Css/base.css">
+    <link rel="stylesheet" href="../Css/style.css">
 </head>
 
 <body>
 
-    <main class="sucesso-container">
+    <header class="site-header">
+        <div class="wrap">
+            <a href="../index.html" class="marca">
+                <img src="../Imagens/WhatsApp Image 2026-05-07 at 10.17.49 (1) 2.png" alt="Ouro Verde Buffet">
+                <span>Ouro Verde<small>Buffet &amp; Locação</small></span>
+            </a>
+            <a href="../index.html#catalogo" class="voltar">← Voltar ao catálogo</a>
+        </div>
+    </header>
 
-        <div class="sucesso-card">
+    <main class="pagina">
+        <div class="wrap">
 
-            <h1>PEDIDO REALIZADO</h1>
+            <section class="painel sucesso">
 
-            <p id="codigo-pedido">Sua solicitação foi enviada com sucesso.</p>
+                <div class="selo-ok">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M5 12.5l4.5 4.5L19 7.5" />
+                    </svg>
+                </div>
 
-            <!-- Resumo financeiro (UC05, passo 4) -->
-            <div id="resumo-financeiro" class="resumo-financeiro"></div>
+                <h1>Pedido recebido</h1>
 
-            <div id="instrucoes-pagamento" class="instrucoes"></div>
+                <p id="codigo-pedido">Sua solicitação foi enviada com sucesso.</p>
 
-            <p>Em breve nossa equipe entrará em contato.</p>
+                <!-- Resumo financeiro (UC05, passo 4) -->
+                <div id="resumo-financeiro" class="resumo-financeiro"></div>
 
-            <div class="acoes">
-                <a href="../index.html" class="btn-secundario">VOLTAR AO CATÁLOGO</a>
-                <a href="meusPedidos.html" class="btn-principal">VER PEDIDOS</a>
-            </div>
+                <div id="instrucoes-pagamento" class="instrucoes"></div>
+
+                <p class="dica rodape-sucesso">Em breve nossa equipe entra em contato para confirmar os detalhes.</p>
+
+                <div class="acoes">
+                    <a href="../index.html" class="btn btn-contorno">Voltar ao catálogo</a>
+                    <a href="meusPedidos.html" class="btn btn-primario">Ver meus pedidos</a>
+                </div>
+
+            </section>
 
         </div>
-
     </main>
 
     <script src="../config.js"></script>

@@ -26,13 +26,13 @@ function resumoPagamento(reserva) {
 
 async function carregarPedidos() {
     const corpo = document.getElementById("listaPedidos");
-    corpo.innerHTML = '<tr><td colspan="7" style="text-align:center;">Buscando seus pedidos...</td></tr>';
+    corpo.innerHTML = '<tr><td colspan="7" class="celula-aviso">Buscando seus pedidos...</td></tr>';
 
     try {
         const reservas = await apiFetch(`/reservas/cliente/${clienteLogado.idCliente}`);
 
         if (reservas.length === 0) {
-            corpo.innerHTML = '<tr><td colspan="7" style="text-align:center;">Você ainda não possui pedidos.</td></tr>';
+            corpo.innerHTML = '<tr><td colspan="7" class="celula-aviso">Você ainda não possui pedidos.</td></tr>';
             return;
         }
 
@@ -48,7 +48,7 @@ async function carregarPedidos() {
             </tr>
         `).join("");
     } catch (erro) {
-        corpo.innerHTML = `<tr><td colspan="7" style="text-align:center; color:#ff6b6b;">${escapeHtml(erro.message)}</td></tr>`;
+        corpo.innerHTML = `<tr><td colspan="7" class="celula-erro">${escapeHtml(erro.message)}</td></tr>`;
     }
 }
 

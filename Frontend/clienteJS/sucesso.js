@@ -7,26 +7,24 @@ const reserva = JSON.parse(localStorage.getItem("ultimaReserva") || "null");
 const resumo = document.getElementById("resumo-financeiro");
 const instrucoes = document.getElementById("instrucoes-pagamento");
 
-if (!reserva) {
-    // Chegou aqui sem ter feito pedido (ex.: recarregou a pagina depois)
-    resumo.style.display = "none";
-    instrucoes.style.display = "none";
-} else {
+if (reserva) {
     document.getElementById("codigo-pedido").innerHTML =
-        `Pedido <strong>#${reserva.idReserva}</strong> registrado para <strong>${escapeHtml(reserva.dataEvento)}</strong>.`;
+        `Pedido <strong>#${reserva.idReserva}</strong> registrado para o dia <strong>${escapeHtml(formatarData(reserva.dataEvento))}</strong>.`;
 
     const linhasParcelas = (reserva.parcelas || []).map(p => `
         <tr>
             <td>${p.id?.numeroParcela ?? "-"}ª</td>
-            <td>${escapeHtml(p.dataVencimento)}</td>
+            <td>${escapeHtml(formatarData(p.dataVencimento))}</td>
             <td>${formatarMoeda(p.valorParcela)}</td>
         </tr>
     `).join("");
 
     resumo.innerHTML = `
-        <p><strong>Total: ${formatarMoeda(reserva.valorTotal)}</strong>
-           · ${reserva.tipoEntrega === "ENTREGA" ? "Entrega no endereço" : "Retirada no Ouro Verde"}</p>
-        <table>
+        <div class="linha-resumo total">
+            <span>Total · ${reserva.tipoEntrega === "ENTREGA" ? "entrega no endereço" : "retirada no Ouro Verde"}</span>
+            <span>${formatarMoeda(reserva.valorTotal)}</span>
+        </div>
+        <table class="tabela">
             <thead><tr><th>Parcela</th><th>Vencimento</th><th>Valor</th></tr></thead>
             <tbody>${linhasParcelas}</tbody>
         </table>
@@ -34,18 +32,20 @@ if (!reserva) {
 
     if (reserva.formaPagamento === "PIX") {
         instrucoes.innerHTML = `
-            <h3 style="color: #2e7d32;">Pagamento via Pix</h3>
-            <p>Use a chave abaixo e informe o código do pedido <strong>#${reserva.idReserva}</strong>:</p>
-            <strong style="font-size: 18px; display: block; margin: 10px 0;">CNPJ: 12.345.678/0001-99</strong>
-            <p style="font-size: 14px; color: #666;">(Ouro Verde Buffet Ltda)</p>
+            <h3>Pagamento via Pix</h3>
+            <p>Use a chave abaixo e informe o código do pedido <strong>#${reserva.idReserva}</strong>.</p>
+            <span class="chave">CNPJ 12.345.678/0001-99</span>
+            <small>Ouro Verde Buffet Ltda</small>
         `;
     } else {
         instrucoes.innerHTML = `
-            <h3 style="color: #b71c1c;">Pagamento Presencial</h3>
-            <p>O pagamento será realizado no balcão, na retirada ou na entrega.</p>
-            <p style="font-size: 14px; color: #666;">Aceitamos dinheiro, débito e crédito.</p>
+            <h3>Pagamento presencial</h3>
+            <p>O pagamento é feito no balcão, na retirada ou na entrega.</p>
+            <small>Aceitamos dinheiro, débito e crédito.</small>
         `;
     }
 
     localStorage.removeItem("ultimaReserva");
 }
+// Sem "ultimaReserva" (ex.: recarregou a pagina depois), os blocos vazios
+// ficam escondidos pelo CSS (:empty).

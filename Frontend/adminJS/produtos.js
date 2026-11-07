@@ -14,14 +14,14 @@ const selectCategoria = document.getElementById("categoria");
 /* ---------------- CARREGAR DADOS ---------------- */
 
 async function carregarTudo() {
-    produtosTbody.innerHTML = `<tr><td colspan="7">Carregando...</td></tr>`;
+    produtosTbody.innerHTML = `<tr><td colspan="7" class="celula-aviso">Carregando...</td></tr>`;
     try {
         [materiais, categorias] = await Promise.all([apiFetch("/materiais"), apiFetch("/categorias")]);
         renderizarCategorias();
         renderizarProdutos();
         renderizarCards();
     } catch (erro) {
-        produtosTbody.innerHTML = `<tr><td colspan="7" style="color:#ff8a8a;">${escapeHtml(erro.message)}</td></tr>`;
+        produtosTbody.innerHTML = `<tr><td colspan="7" class="celula-erro">${escapeHtml(erro.message)}</td></tr>`;
     }
 }
 
@@ -33,7 +33,7 @@ function renderizarCards() {
 
 function renderizarProdutos() {
     if (materiais.length === 0) {
-        produtosTbody.innerHTML = `<tr><td colspan="7">Nenhum produto cadastrado.</td></tr>`;
+        produtosTbody.innerHTML = `<tr><td colspan="7" class="celula-aviso">Nenhum produto cadastrado.</td></tr>`;
         return;
     }
 
@@ -45,10 +45,10 @@ function renderizarProdutos() {
             <td>${escapeHtml(m.categoria?.nome ?? "-")}</td>
             <td>${formatarMoeda(m.precoUnitario)}</td>
             <td>${m.quantidadeEstoque}</td>
-            <td>
+            <td><div class="acoes-celula">
                 <button class="btn-action" onclick="editarProduto(${m.idMaterial})">Editar</button>
                 <button class="btn-action excluir" onclick="excluirProduto(${m.idMaterial})">Excluir</button>
-            </td>
+            </div></td>
         </tr>
     `).join("");
 }
@@ -66,17 +66,17 @@ function editarProduto(id) {
     document.getElementById("estoque").value = m.quantidadeEstoque;
     document.getElementById("imagem").value = m.urlImagem ?? "";
 
-    document.getElementById("tituloForm").textContent = `✎ EDITANDO PRODUTO #${m.idMaterial}`;
-    document.getElementById("btnSalvar").textContent = "SALVAR";
-    document.getElementById("btnCancelar").style.display = "inline-block";
+    document.getElementById("tituloForm").textContent = `Editando produto #${m.idMaterial}`;
+    document.getElementById("btnSalvar").textContent = "Salvar alterações";
+    document.getElementById("btnCancelar").style.display = "inline-flex";
     form.scrollIntoView({ behavior: "smooth" });
 }
 
 function sairDoModoEdicao() {
     form.reset();
     document.getElementById("idEdicao").value = "";
-    document.getElementById("tituloForm").textContent = "+ ADICIONAR PRODUTO";
-    document.getElementById("btnSalvar").textContent = "ADICIONAR";
+    document.getElementById("tituloForm").textContent = "Novo produto";
+    document.getElementById("btnSalvar").textContent = "Adicionar produto";
     document.getElementById("btnCancelar").style.display = "none";
 }
 

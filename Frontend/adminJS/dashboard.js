@@ -7,7 +7,7 @@ configurarLogout();
 const tbody = document.getElementById("pedidosTable");
 
 async function carregarDashboard() {
-    tbody.innerHTML = `<tr><td colspan="7">Carregando dados...</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="7" class="celula-aviso">Carregando dados...</td></tr>`;
 
     try {
         const [reservas, materiais] = await Promise.all([
@@ -19,7 +19,7 @@ async function carregarDashboard() {
         preencherTabela(reservas);
     } catch (erro) {
         console.error(erro);
-        tbody.innerHTML = `<tr><td colspan="7" style="color:#ff8a8a;">${escapeHtml(erro.message)}</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="7" class="celula-erro">${escapeHtml(erro.message)}</td></tr>`;
     }
 }
 
@@ -34,7 +34,7 @@ function preencherTabela(reservas) {
     const recentes = reservas.slice(0, 5);
 
     if (recentes.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="7">Nenhum pedido encontrado.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="7" class="celula-aviso">Nenhum pedido encontrado.</td></tr>`;
         return;
     }
 

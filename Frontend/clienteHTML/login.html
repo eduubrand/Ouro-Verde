@@ -4,100 +4,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Entrar - Ouro Verde</title>
-    <link rel="stylesheet" href="../clienteCSS/checkout.css">
-    <link rel="stylesheet" href="../clienteCSS/login.css">
+    <title>Entrar · Ouro Verde</title>
+    <meta name="theme-color" content="#16291d">
+    <link rel="icon" type="image/png" href="../adminAssets/logo.png">
+    <link rel="stylesheet" href="../Css/base.css">
+    <link rel="stylesheet" href="../Css/style.css">
 </head>
 
 <body>
 
-    <header>
-        <a href="../index.html" class="voltar">← Voltar ao Catálogo</a>
+    <header class="site-header">
+        <div class="wrap">
+            <a href="../index.html" class="marca">
+                <img src="../Imagens/WhatsApp Image 2026-05-07 at 10.17.49 (1) 2.png" alt="Ouro Verde Buffet">
+                <span>Ouro Verde<small>Buffet &amp; Locação</small></span>
+            </a>
+            <a href="../index.html#catalogo" class="voltar">← Voltar ao catálogo</a>
+        </div>
     </header>
 
-    <main class="login-container">
+    <main class="pagina">
+        <div class="wrap">
 
-        <!-- LOGIN (UC01) -->
-        <section class="painel">
-            <h1>ENTRAR</h1>
-            <p class="subtitulo">Já tem conta? Entre para finalizar o pedido e ver seus pedidos.</p>
+            <div class="pagina-titulo">
+                <span class="eyebrow">Sua conta</span>
+                <h1>Entre ou crie sua conta</h1>
+                <p>Você precisa estar logado para fechar pedidos e acompanhar os que já fez.</p>
+            </div>
 
-            <form id="form-login">
-                <div class="grupo">
-                    <label for="login-email">E-mail</label>
-                    <input type="email" id="login-email" required>
-                </div>
-                <div class="grupo">
-                    <label for="login-senha">Senha</label>
-                    <input type="password" id="login-senha" required>
-                </div>
-                <p id="erro-login" class="mensagem-erro"></p>
-                <button type="submit">ENTRAR</button>
-            </form>
-        </section>
+            <div class="login-grade">
 
-        <!-- CADASTRO (UC02) -->
-        <section class="painel">
-            <h1>CRIAR CONTA</h1>
-            <p class="subtitulo">Primeira vez aqui? Cadastre-se em menos de um minuto.</p>
+                <!-- LOGIN (UC01) -->
+                <section class="painel">
+                    <h2>Já sou cliente</h2>
+                    <p class="subtitulo">Entre com o e-mail e a senha do seu cadastro.</p>
 
-            <form id="form-cadastro">
-                <div class="grupo">
-                    <label for="cad-nome">Nome completo *</label>
-                    <input type="text" id="cad-nome" required>
-                </div>
-                <div class="linha">
-                    <div class="grupo">
-                        <label for="cad-cpf">CPF ou CNPJ *</label>
-                        <input type="text" id="cad-cpf" required>
-                    </div>
-                    <div class="grupo">
-                        <label for="cad-telefone">Telefone</label>
-                        <input type="text" id="cad-telefone">
-                    </div>
-                </div>
-                <div class="linha">
-                    <div class="grupo">
-                        <label for="cad-email">E-mail *</label>
-                        <input type="email" id="cad-email" required>
-                    </div>
-                    <div class="grupo">
-                        <label for="cad-senha">Senha * (mín. 6)</label>
-                        <input type="password" id="cad-senha" minlength="6" required>
-                    </div>
-                </div>
+                    <form id="form-login" class="form-pilha">
+                        <div class="campo">
+                            <label for="login-email">E-mail</label>
+                            <input type="email" id="login-email" autocomplete="email" required>
+                        </div>
+                        <div class="campo">
+                            <label for="login-senha">Senha</label>
+                            <input type="password" id="login-senha" autocomplete="current-password" required>
+                        </div>
+                        <p id="erro-login" class="mensagem-erro"></p>
+                        <button type="submit" class="btn btn-primario btn-bloco">Entrar</button>
+                    </form>
+                </section>
 
-                <p class="subtitulo">Endereço (usado quando o pedido é para entrega)</p>
-                <div class="linha">
-                    <div class="grupo">
-                        <label for="cad-rua">Rua</label>
-                        <input type="text" id="cad-rua">
-                    </div>
-                    <div class="grupo">
-                        <label for="cad-numero">Número</label>
-                        <input type="text" id="cad-numero">
-                    </div>
-                </div>
-                <div class="linha">
-                    <div class="grupo">
-                        <label for="cad-bairro">Bairro</label>
-                        <input type="text" id="cad-bairro">
-                    </div>
-                    <div class="grupo">
-                        <label for="cad-cidade">Cidade</label>
-                        <input type="text" id="cad-cidade">
-                    </div>
-                </div>
-                <div class="grupo">
-                    <label for="cad-cep">CEP</label>
-                    <input type="text" id="cad-cep">
-                </div>
+                <!-- CADASTRO (UC02) -->
+                <section class="painel">
+                    <h2>Primeira vez aqui?</h2>
+                    <p class="subtitulo">Leva menos de um minuto. Campos com * são obrigatórios.</p>
 
-                <p id="erro-cadastro" class="mensagem-erro"></p>
-                <button type="submit">CRIAR CONTA</button>
-            </form>
-        </section>
+                    <form id="form-cadastro" class="form-grade">
+                        <div class="campo inteiro">
+                            <label for="cad-nome">Nome completo *</label>
+                            <input type="text" id="cad-nome" autocomplete="name" required>
+                        </div>
+                        <div class="campo">
+                            <label for="cad-cpf">CPF ou CNPJ *</label>
+                            <input type="text" id="cad-cpf" inputmode="numeric" required>
+                        </div>
+                        <div class="campo">
+                            <label for="cad-telefone">Telefone</label>
+                            <input type="text" id="cad-telefone" inputmode="tel" autocomplete="tel">
+                        </div>
+                        <div class="campo">
+                            <label for="cad-email">E-mail *</label>
+                            <input type="email" id="cad-email" autocomplete="email" required>
+                        </div>
+                        <div class="campo">
+                            <label for="cad-senha">Senha * (mín. 6)</label>
+                            <input type="password" id="cad-senha" minlength="6" autocomplete="new-password" required>
+                        </div>
 
+                        <p class="subtitulo-form">Endereço · usado quando o pedido é para entrega</p>
+
+                        <div class="campo">
+                            <label for="cad-rua">Rua</label>
+                            <input type="text" id="cad-rua">
+                        </div>
+                        <div class="campo">
+                            <label for="cad-numero">Número</label>
+                            <input type="text" id="cad-numero">
+                        </div>
+                        <div class="campo">
+                            <label for="cad-bairro">Bairro</label>
+                            <input type="text" id="cad-bairro">
+                        </div>
+                        <div class="campo">
+                            <label for="cad-cidade">Cidade</label>
+                            <input type="text" id="cad-cidade">
+                        </div>
+                        <div class="campo">
+                            <label for="cad-cep">CEP</label>
+                            <input type="text" id="cad-cep" inputmode="numeric">
+                        </div>
+
+                        <p id="erro-cadastro" class="mensagem-erro inteiro"></p>
+                        <div class="inteiro">
+                            <button type="submit" class="btn btn-contorno btn-bloco">Criar conta</button>
+                        </div>
+                    </form>
+                </section>
+
+            </div>
+
+        </div>
     </main>
 
     <script src="../config.js"></script>

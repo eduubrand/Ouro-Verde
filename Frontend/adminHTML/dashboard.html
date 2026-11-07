@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Ouro Verde</title>
+    <title>Visão geral · Painel Ouro Verde</title>
+    <meta name="theme-color" content="#16291d">
+    <meta name="robots" content="noindex">
 
     <link rel="icon" type="image/png" href="../adminAssets/logo.png">
-    <link rel="stylesheet" href="../adminCSS/dashboard.css">
-    <link rel="stylesheet" href="../adminCSS/extras.css">
+    <link rel="stylesheet" href="../Css/base.css">
+    <link rel="stylesheet" href="../adminCSS/admin.css">
 
     <!-- Bloqueia a pagina antes de desenhar, se nao houver admin logado -->
     <script src="../config.js"></script>
@@ -16,62 +18,76 @@
 </head>
 <body>
 
-<div class="container">
+<div class="admin">
 
-    <!-- SIDEBAR -->
     <aside class="sidebar">
-        <div class="sidebar-top">
-            <div class="logo-placeholder">
-                <img src="../adminAssets/logo.png" alt="Ouro Verde">
-            </div>
-            <nav>
-                <a href="dashboard.html" class="active">DASHBOARD</a>
-                <a href="pedidos.html">PEDIDOS</a>
-                <a href="produtos.html">PRODUTOS</a>
-            </nav>
-        </div>
-        <div class="sidebar-bottom">
-            <a href="#" id="logoutBtn">SAIR</a>
-        </div>
+        <a href="dashboard.html" class="sidebar-marca">
+            <img src="../Imagens/WhatsApp Image 2026-05-07 at 10.17.49 (1) 2.png" alt="">
+            <span>Ouro Verde<small>Painel</small></span>
+        </a>
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="active">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7" rx="1"/><rect x="13.5" y="3.5" width="7" height="7" rx="1"/><rect x="3.5" y="13.5" width="7" height="7" rx="1"/><rect x="13.5" y="13.5" width="7" height="7" rx="1"/></svg>
+                Visão geral
+            </a>
+            <a href="pedidos.html">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="1.5"/><path d="M9 4V3h6v1M8.5 10h7M8.5 14h7M8.5 18h4"/></svg>
+                Pedidos
+            </a>
+            <a href="produtos.html">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 7.5L12 3l8.5 4.5v9L12 21l-8.5-4.5z"/><path d="M3.5 7.5L12 12l8.5-4.5M12 12v9"/></svg>
+                Produtos
+            </a>
+        </nav>
+        <a href="#" id="logoutBtn" class="sidebar-sair">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h4.5A1.5 1.5 0 0 1 20 5.5v13a1.5 1.5 0 0 1-1.5 1.5H14M10 16l-4-4 4-4M6 12h10"/></svg>
+            Sair
+        </a>
     </aside>
 
-    <!-- CONTEÚDO -->
     <main class="content">
 
-        <h1>PAINEL<span>ADMIN</span></h1>
+        <header class="content-topo">
+            <div>
+                <span class="eyebrow">Painel administrativo</span>
+                <h1>Visão geral</h1>
+            </div>
+            <div class="acoes-topo">
+                <a href="pedidos.html" class="btn btn-contorno">Todos os pedidos</a>
+                <a href="produtos.html" class="btn btn-primario">Gerenciar produtos</a>
+            </div>
+        </header>
 
         <section class="cards">
             <div class="card">
-                <h3>RECEITA DO MÊS</h3>
+                <h3>Receita do mês</h3>
                 <p id="receitaMensal">-</p>
             </div>
             <div class="card">
-                <h3>PRODUTOS CADASTRADOS</h3>
+                <h3>Produtos cadastrados</h3>
                 <p id="produtosAtivos">-</p>
             </div>
             <div class="card">
-                <h3>PEDIDOS PENDENTES</h3>
+                <h3>Pedidos pendentes</h3>
                 <p id="pedidosPendentes">-</p>
             </div>
         </section>
 
-        <div class="action-buttons">
-            <button onclick="window.location.href='pedidos.html'">TODOS OS PEDIDOS</button>
-            <button onclick="window.location.href='produtos.html'">GERENCIAR PRODUTOS</button>
-        </div>
-
         <section class="table-container">
-            <h3>PEDIDOS RECENTES:</h3>
-            <table>
+            <div class="painel-topo">
+                <h2>Pedidos recentes</h2>
+                <a href="pedidos.html">Ver todos →</a>
+            </div>
+            <table class="tabela responsiva">
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>CLIENTE</th>
-                        <th>DATA DO EVENTO</th>
-                        <th>ENTREGA</th>
-                        <th>TOTAL</th>
-                        <th>STATUS</th>
-                        <th>AÇÃO</th>
+                        <th>Cliente</th>
+                        <th>Evento</th>
+                        <th>Entrega</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                        <th>Ação</th>
                     </tr>
                 </thead>
                 <tbody id="pedidosTable"></tbody>
@@ -85,10 +101,10 @@
 <!-- MODAL DE SAIR -->
 <div class="modal" id="logoutModal">
     <div class="modal-content">
-        <h2>Tem certeza que quer sair?</h2>
+        <h2>Sair do painel?</h2>
         <div class="modal-buttons">
-            <button id="confirmLogout">SAIR</button>
-            <button id="cancelLogout">CANCELAR</button>
+            <button id="cancelLogout" class="btn btn-contorno">Cancelar</button>
+            <button id="confirmLogout" class="btn">Sair</button>
         </div>
     </div>
 </div>
